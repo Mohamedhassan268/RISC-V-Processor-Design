@@ -12,7 +12,7 @@ A fully synthesizable 32-bit Single-Cycle Processor based on the **RISC-V Harvar
 
 The design follows a modular approach, integrating the Data Path and Control Logic.
 
-![System Block Diagram](system_diagram.png)
+![System Block Diagram](system_diagram.png.png)
 *(Note: Upload the diagram from Page 2 of your PDF here)*
 
 ### Core Modules
