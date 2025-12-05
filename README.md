@@ -1,33 +1,26 @@
+# RISC-V RV32I Single-Cycle Processor
+Pure Verilog-2001 Implementation (QuestaSim / ModelSim Compatible)
 
-```markdown
-# RISC-V RV32I Single-Cycle Processor  
-### Pure Verilog Implementation (QuestaSim / ModelSim Compatible)
-
-This repository contains a clean and modular **single-cycle RISC-V RV32I CPU** implemented entirely in **pure Verilog-2001**.  
-The design follows the textbook architecture from *Patterson & Hennessy*, including:
+This repository contains a modular single-cycle RISC-V RV32I processor written entirely in Verilog-2001. The design is based on the architecture described in Patterson & Hennessy and includes:
 
 - ALU  
+- ALU Control  
 - Control Unit  
 - Register File  
 - Immediate Generator  
-- Instruction & Data Memory  
+- Instruction Memory  
+- Data Memory  
 - Program Counter  
-- MUXes  
-- Fully integrated single-cycle datapath  
+- Multiplexers  
+- Fully integrated CPU datapath
 
-The project includes:
-- RTL implementation of all CPU components  
-- A modular testbench for each module  
-- A full CPU testbench (`CPU_TOP_tb.v`)  
-- Example RISC-V machine-code programs loaded using `$readmemh`  
-- Documentation and ASCII schematics  
+The project includes synthesizable RTL, module-level testbenches, a full CPU testbench, and sample machine-code programs loaded using `$readmemh`.
 
 ---
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
-
 RISCV_SingleCycle_CPU/
 │
 ├── rtl/                      # Synthesizable Verilog RTL
@@ -41,9 +34,9 @@ RISCV_SingleCycle_CPU/
 │   ├── ProgramCounter.v
 │   ├── Mux2_32.v
 │   ├── CPU_TOP.v
-│   └── risc.dat              # Example program (optional)
+│   └── risc.dat
 │
-├── tb/                       # Module-level and CPU-level testbenches
+├── tb/                       # Testbenches
 │   ├── ALU_tb.v
 │   ├── ALUControl_tb.v
 │   ├── ControlUnit_tb.v
@@ -54,7 +47,7 @@ RISCV_SingleCycle_CPU/
 │   ├── CPU_TOP_tb.v
 │
 ├── mem/                      # Program memory files
-│   ├── risc.dat              # Main program loaded by InstructionMemory
+│   ├── risc.dat
 │   └── example_programs/
 │       ├── add_loop.dat
 │       ├── factorial.dat
@@ -67,114 +60,72 @@ RISCV_SingleCycle_CPU/
 │   └── testing_strategy.md
 │
 └── README.md
-
 ```
 
 ---
 
-## 🧠 Architecture Overview
+## RV32I Instruction Set Support
 
-This CPU implements the **RV32I base instruction set**, including:
+The processor implements the following RV32I instructions:
 
-- R-type (ADD, SUB, AND, OR, XOR, SLT, SLL, SRL, SRA)  
-- I-type (ADDI, ANDI, ORI, LW, JALR)  
-- S-type (SW)  
-- B-type (BEQ, BNE, BLT, BGE)  
-- U-type (LUI)  
-- J-type (JAL)
+- R-type: ADD, SUB, AND, OR, XOR, SLT, SLL, SRL, SRA  
+- I-type: ADDI, ANDI, ORI, LW, JALR  
+- S-type: SW  
+- B-type: BEQ, BNE, BLT, BGE  
+- U-type: LUI  
+- J-type: JAL  
 
-The processor executes each instruction in **one cycle**, enabling a simplified datapath ideal for education and hardware learning.
+All instructions execute in a single clock cycle.
 
 ---
 
-## 🧪 Simulation (QuestaSim / ModelSim)
+## Simulation Instructions (QuestaSim / ModelSim)
 
-### 1. Compile RTL and Testbench
-
+### Compile RTL and Testbench
 ```
-
 vlib work
 vlog rtl/*.v tb/CPU_TOP_tb.v
-
 ```
 
-### 2. Run Simulation
-
+### Run Simulation
 ```
-
 vsim CPU_TOP_tb
 run -all
-
 ```
 
-### 3. View Internal Signals
-
-Inside QuestaSim:
-
+### Add Waveforms (optional)
 ```
-
 add wave sim:/CPU_TOP_tb/DUT/*
 add wave sim:/CPU_TOP_tb/DUT/ALU/*
 add wave sim:/CPU_TOP_tb/DUT/RegisterFile/*
-
-````
+```
 
 ---
 
-## 📦 Loading Programs (`risc.dat`)
+## Program Loading (`risc.dat`)
 
-The instruction memory reads hexadecimal machine code using:
+The instruction memory loads a HEX machine-code file:
 
 ```verilog
 $readmemh("risc.dat", mem);
-````
-
-Example programs are available under:
-
-```
-mem/example_programs/
 ```
 
-### To test a program:
+To load a different program:
 
-1. Copy the desired `.dat` into `mem/risc.dat`.
-2. Run the simulation again.
+1. Replace `mem/risc.dat` with another `.dat` file  
+2. Re-run the simulation  
+
+Example programs are provided under `mem/example_programs/`.
 
 ---
 
-## 🧰 Tools Used
-
-* **QuestaSim / ModelSim**
-* **Verilog-2001**
-* Optional: **Ripes**, **RARS**, or **Venus** to generate RV32I machine code
-
----
-
-## 📄 License
-
-MIT License (or choose one)
+## Tools Used
+- Verilog-2001  
+- Mentor QuestaSim / ModelSim  
+- RARS, Venus, or Ripes for generating machine code  
 
 ---
 
-## ✨ Author
+## Author
+Mohannad Mohamed
 
-**Mohannad Mohamed**
-Digital Design Engineer
-RISC-V / FPGA / Verilog Projects
-
-```
-
----
-
-# ✅ This is the **exact** README to copy.
-
-If you want, I can also generate:
-
-### 📘 `schematic_ascii.md`  
-### 📘 `datapath_description.md`  
-### 📘 module-by-module documentation  
-### 📘 waveform debugging guide  
-### 📘 improved testbenches  
-
-Just tell me what you want next.
-```
