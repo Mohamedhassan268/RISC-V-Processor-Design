@@ -1,0 +1,28 @@
+# Build / simulation outputs
+work/
+vsim.wlf
+transcript
+*.vcd
+*.wlf
+*.log
+*.jou
+*.db
+*.rpt
+
+# Questa/ModelSim project files (optional to ignore)
+*.ini
+*.mpf
+*.mrf
+
+# Temporary / backup files
+*~
+*.bak
+*.orig
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# OneDrive / Windows junk
+~$*
