@@ -127,5 +127,5 @@ Example programs are provided under `mem/example_programs/`.
 ---
 
 ## Author
-Mohannad Mohamed
+Mohamed Hassan
 
